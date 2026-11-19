@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from  django.http import HttpResponse
 from .models import Student_table
+from .forms import Student_form_data
 # Create your views here.
 def home(request):
     data={
@@ -25,3 +26,17 @@ def forms(request):
         Student_table.objects.create(reg_no=reg_no,name=name,email=email,marks=marks,dob=dob)
         return HttpResponse("saved successfully")
     return render(request,'Student_form.html')
+
+def Student_form_dj(request):
+    if request.method=="POST":
+        form=Student_form_data(request.POST)
+        if form.is_valid():
+            reg_no1=form.cleaned_data['reg_no1']
+            name1=form.cleaned_data['name1']
+            email1=form.cleaned_data['email1']
+            return HttpResponse("Saved Successfully!")
+        else:
+            return HttpResponse("Invalid Data")
+    else:
+        form=Student_form_data()
+        return render(request,'Student_form_data.html',{'form':form})
