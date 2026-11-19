@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome,{{request.User.username}}</h1>
+    <h1>Welcome,{{request.user.username}}</h1>
     <form action="{% url 'logout' %}" method="POST">
         {% csrf_token %}
         <button type="submit">Logout</button>
